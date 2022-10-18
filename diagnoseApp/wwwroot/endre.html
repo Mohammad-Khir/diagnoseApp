@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <script src="js/index.js"></script>
+    <script src="js/endre.js"></script>
 
     <!--bootstrap link-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css">
@@ -51,42 +51,39 @@
                                 <input type="hidden" id="id" />
                                 <div class="form-group">
                                     <label for="fornavn">Fornavn</label>
-                                    <input type="text" class="form-control" id="fornavn" placeholder="fyll inn fornavn"/>
+                                    <input type="text" class="form-control" id="fornavn" placeholder="fyll inn fornavn" />
                                     <span id="feilFornavn" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="etternavn">Etternavn</label>
-                                    <input type="text" class="form-control" id="etternavn" placeholder="fyll inn etternavn"/>
+                                    <input type="text" class="form-control" id="etternavn" placeholder="fyll inn etternavn" />
                                     <span id="feilEtternavn" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="fodselsnr">Fødselsnr</label>
-                                    <input type="text" class="form-control" id="fodselsnr" placeholder="fyll inn fødselsnr"/>
+                                    <input type="text" class="form-control" id="fodselsnr" placeholder="fyll inn fødselsnr" />
                                     <span id="feilFodselsnr" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="adresse">Adresse</label>
-                                    <input type="text" class="form-control" id="adresse" placeholder="fyll inn adresse"/>
+                                    <input type="text" class="form-control" id="adresse" placeholder="fyll inn adresse" />
                                     <span id="feilAdresse" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="tlf">Telefonnr</label>
-                                    <input type="text" class="form-control" id="tlf" placeholder="fyll inn telefonnr"/>
+                                    <input type="text" class="form-control" id="tlf" placeholder="fyll inn telefonnr" />
                                     <span id="feilTlf" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="epost">Epost</label>
-                                    <input type="text" class="form-control" id="epost" placeholder="fyll inn epost"/>
+                                    <input type="text" class="form-control" id="epost" placeholder="fyll inn epost" />
                                     <span id="feilEpost" style="color: red"></span>
                                 </div>
                             </form>
-                            <button class="btn btn-primary" onclick="regPerson()">Registrer</button><br />
+                            <button class="btn btn-primary" onclick="endrePerson()">Bekrefe endringer</button><br />
+                            <button class="btn btn-dengar" onclick="hentEn()">Test</button><br />
                         </div>
-                        <div class="col-md-8">
-                            <h3>Person opplysninger:</h3>
-                            <div id="personInfo" class="table-responsive"></div>
-
-                        </div>
+                        
 
                         <!--<div class="col-md-8">
                     <h3>Person opplysninger:</h3>

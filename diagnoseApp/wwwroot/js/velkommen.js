@@ -26,7 +26,7 @@ function formaterEn(person) {
         "<td>" + person.adresse + "</td>" +
         "<td>" + person.tlf + "</td>" +
         "<td>" + person.epost + "</td>" +
-        "<td> <a class='btn btn-primary' href='index1.html?id=" + person.id + "'>Endre</a></td>" +
+        "<td> <a class='btn btn-primary' href='endre.html?id=" + person.id + "'>Endre</a></td>" +
         "<td> <button class='btn btn-danger' onclick='slettPerson(" + person.id + ")'>Slett</button></td>" +
         "</tr>" +
         "</table>";
