@@ -1,9 +1,9 @@
-﻿$(function () {
+﻿$(function () {           // denne kjøres når dokumentet er ferdig lastet
     hentEnPerson();
 });
 
 function hentEnPerson() {
-    // hent kunden med kunde-id fra url og vis denne i skjemaet
+    // hent personen med person-id fra url og vis denne
 
     const id = window.location.search.substring(1);
     const url = "Person/HentEn?" + id;
@@ -29,7 +29,12 @@ function formaterEn(person) {
         "<td> <a class='btn btn-primary' href='endre.html?id=" + person.id + "'>Endre</a></td>" +
         "<td> <button class='btn btn-danger' onclick='slettPerson(" + person.id + ")'>Slett</button></td>" +
         "</tr>" +
-        "</table>";
+        "</table>" + "<br />" +
+
+        "<table class='table table-striped' style='background-color: orange'>" +
+        "<tr>" + "<td>" +
+        "<a class='btn btn-primary' href='main.html?id=" + person.id + "'>Diagnoser</a>" +
+        "</td>" + "</tr>" + "</table>";
 
     $("#personene").html(ut);
 }

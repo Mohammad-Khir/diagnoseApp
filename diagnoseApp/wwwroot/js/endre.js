@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿$(function () {       // denne kjøres når dokumentet er ferdig lastet
     hentEn();
 });
 
