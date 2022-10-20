@@ -69,7 +69,7 @@ function bekreftReg() {
 function hentPersonen() {
     $.get("Person/HentAlle", function (personer) {
         for (let person of personer) {
-            window.location.href = "velkommen.html?id=" + person.id;
+            window.location.href = "velkommen.html?id=" + hentPersonen();
         }
     });
 }    

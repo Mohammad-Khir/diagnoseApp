@@ -273,16 +273,6 @@ a:link {
     border-bottom: solid 3px b;
 }
 
-.form-group {
-    width: 100%;
-    height: 49%;
-}
-
-.form-group1 {
-    width: 100%;
-    height: 49%;
-}
-
 
 label {
     display: block;
@@ -320,6 +310,17 @@ input {
         margin: 0px auto;
     }
 }
+
+@media(max-width: 1000px) {
+    .container {
+        display: table-cell;
+    }
+    .body {
+        display: block;
+        padding: 0px;
+    }
+}
+
 
 /************* Footer ****************/
 

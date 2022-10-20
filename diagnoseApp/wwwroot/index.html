@@ -36,76 +36,71 @@
 
         <section id="theCalculator">
             <article>
-                <div id="PersonInfo"></div>
-                <button class="btn btn-danger" onclick="SlettPerson()">Slett person info</button>
-                <!--FELER FOR Å DIAGONISERE -->
-
+                
                 <div class="form-group1">
                     <h1 class="form-title">Fyll ut tabell</h1>
-                    <form action="#">
-                        <div class=" ">
-                            <div class="user-input-box">
-                                <tr>
-                                    <td><label for="fornavn">Fornavn</label></td>
-                                    <td><input type="text" name="fornavn" id="fornavn" placeholder="fyll in for navn" /></td>
-                                    <td>
-                                        <span id="feilfornavn"></span>
-                                    </td>
-                                </tr>
-                            </div>
-                            <div class="user-input-box">
-                                <tr>
-                                    <td><label for="etternavn">Etternavn</label></td>
-                                    <td><input type="text" name="etternavn" id="etternavn" placeholder="fyll in etternavn" /></td>
-                                    <td>
-                                        <span id="feiletternavn"></span>
-                                    </td>
-                                </tr>
-                            </div>
-                            <div class="user-input-box">
-                                <tr>
-                                    <td><label for="fødselsdato">Fødselsdato</label></td>
-                                    <td><input type="text" name="fødselsdato" id="fødselsdato" placeholder="fyll in fødselsdato" /></td>
-                                    <td>
-                                        <span id="feilfødselsdato"></span>
-                                    </td>
-                                </tr>
-                            </div>
-                            <div class="user-input-box">
-                                <tr>
-                                    <td><label for="telefonnr">Telefonnr</label></td>
-                                    <td><input type="text" name="telefonnr" id="telefonnr" placeholder="fyll in telefonnr" /></td>
-                                    <td>
-                                        <span id="feiltelefonnr"></span>
-                                    </td>
-                                </tr>
-                            </div>
-                            <div class="user-input-box">
-                                <tr>
-                                    <td><label for="epost">Epost</label></td>
-                                    <td><input type="text" name="epost" id="epost" placeholder="fyll in epost" /></td>
-                                    <td>
-                                        <span id="feilepost"></span>
-                                    </td>
-                                </tr>
-                            </div>
-                            <div class="kjønnsbox">
-                                <span class="kjønnsbox">velg kjønn</span>
-                                <div class="kjønns-katagory">
-                                    <td><input type="radio" name="kjønn" id="mann" /></td><td>
-                                        <tr><td><label for="mann">Mann</label></td><tr></tr>
-                                    <td><input type="radio" name="kjønn" id="kvinne" /></td><td>
-                                        <tr><td><label for="kvinne">Kvinne</label></td>
-                                </div>
-
-                            </div>
-                            <div class="sjekk-knapp">
-                                <a href="result.html">
-                                    <input type="submit" value="Diagnoser" class="sjekk-knapp">
-                                </a>
-                            </div>
+                    
+                    <div class="user-input-box">
+                        <tr>
+                            <td><label for="fornavn">Fornavn</label></td>
+                            <td><input type="text" name="fornavn" id="fornavn" placeholder="fyll in for navn" /></td>
+                            <td>
+                                <span id="feilfornavn"></span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="user-input-box">
+                        <tr>
+                            <td><label for="etternavn">Etternavn</label></td>
+                            <td><input type="text" name="etternavn" id="etternavn" placeholder="fyll in etternavn" /></td>
+                            <td>
+                                <span id="feiletternavn"></span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="user-input-box">
+                        <tr>
+                            <td><label for="fødselsdato">Fødselsdato</label></td>
+                            <td><input type="text" name="fødselsdato" id="fødselsdato" placeholder="fyll in fødselsdato" /></td>
+                            <td>
+                                <span id="feilfødselsdato"></span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="user-input-box">
+                        <tr>
+                            <td><label for="telefonnr">Telefonnr</label></td>
+                            <td><input type="text" name="telefonnr" id="telefonnr" placeholder="fyll in telefonnr" /></td>
+                            <td>
+                                <span id="feiltelefonnr"></span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="user-input-box">
+                        <tr>
+                            <td><label for="epost">Epost</label></td>
+                            <td><input type="text" name="epost" id="epost" placeholder="fyll in epost" /></td>
+                            <td>
+                                <span id="feilepost"></span>
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="kjønnsbox">
+                        <span class="kjønnsbox">velg kjønn</span>
+                        <div class="kjønns-katagory">
+                            <td><input type="radio" name="kjønn" id="mann" /></td><td>
+                                <tr><td><label for="mann">Mann</label></td><tr></tr>
+                            <td><input type="radio" name="kjønn" id="kvinne" /></td><td>
+                                <tr><td><label for="kvinne">Kvinne</label></td>
                         </div>
-                    </form>
+
+                    </div>
+                    <div class="sjekk-knapp">
+                        <a href="result.html">
+                            <input type="submit" value="Diagnoser" class="sjekk-knapp">
+                        </a>
+                    </div>
+                      
                 </div>
 
             </article>
