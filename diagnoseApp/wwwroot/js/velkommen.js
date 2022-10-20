@@ -30,12 +30,7 @@ function formaterEn(person) {
         "<td> <button class='btn btn-danger' onclick='slettPerson(" + person.id + ")'>Slett</button></td>" +
         "</tr>" +
         "</table>" + "<br />" +
-
-        "<table class='table table-striped' style='background-color: orange'>" +
-        "<tr>" + "<td>" +
-        "<a class='btn btn-primary' href='main.html?id=" + person.id + "'>Diagnoser</a>" +
-        "</td>" + "</tr>" + "</table>";
-
+        "<a class='btn btn-primary' href='main.html?id=" + person.id + "'>Diagnoser</a>";
     $("#personene").html(ut);
 }
 
