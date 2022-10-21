@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using diagnoseApp.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace diagnoseApp.Controllers
 {
@@ -17,12 +19,12 @@ namespace diagnoseApp.Controllers
             _db = db;
         }
 
-        public bool Lagre(Person innPerson)
+        public async Task<bool> Lagre(Person innPerson)
         {
             try
             {
                 _db.personer.Add(innPerson);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch
@@ -32,11 +34,11 @@ namespace diagnoseApp.Controllers
         }
 
 
-        public List<Person> HentAlle()
+        public async Task<List<Person>> HentAlle()
         {
             try
             {
-                List<Person> allePersonene = _db.personer.ToList(); // hent hele tabellen
+                List<Person> allePersonene = await _db.personer.ToListAsync(); // hent hele tabellen
                 return allePersonene;
             }
             catch
@@ -45,13 +47,13 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public bool Slett(int id)
+        public async Task<bool> Slett(int id)
         {
             try
             {
                 Person enPerson = _db.personer.Find(id);
                 _db.personer.Remove(enPerson);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch
@@ -60,11 +62,11 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public Person HentEn(int id)
+        public async Task<Person> HentEn(int id)
         {
             try
             {
-                Person enPerson = _db.personer.Find(id);
+                Person enPerson = await _db.personer.FindAsync(id);
                 return enPerson;
             }
             catch
@@ -73,18 +75,18 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public bool Endre(Person endrePerson)
+        public async Task<bool> Endre(Person endrePerson)
         {
             try
             {
-                Person enPerson = _db.personer.Find(endrePerson.id);
+                Person enPerson = await _db.personer.FindAsync(endrePerson.id);
                 enPerson.fornavn = endrePerson.fornavn;
                 enPerson.etternavn = endrePerson.etternavn;
                 enPerson.fodselsnr = endrePerson.fodselsnr;
                 enPerson.adresse = endrePerson.adresse;
                 enPerson.tlf = endrePerson.tlf;
                 enPerson.epost = endrePerson.epost;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch
@@ -108,9 +110,6 @@ namespace diagnoseApp.Controllers
             }
         }*/
 
-        public bool sjekk()
-        {
-            return false;
-        }
+       
     }
 }

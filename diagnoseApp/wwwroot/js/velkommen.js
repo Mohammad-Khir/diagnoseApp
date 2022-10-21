@@ -15,7 +15,8 @@ function hentEnPerson() {
 
 
 function formaterEn(person) {
-    let ut = "<table class='table table-striped' style='background-color: orange'>" +
+    let ut = "<h2>Velkommen hos Dr.Health!</h2>" +
+        "<table class='table table-striped' style='background-color: orange'>" +
         "<tr>" +
         "<th>Fornavn</th><th>Etternavn</th><th>Fødselsnr</th><th>Adresse</th><th>Tlf</th><th>Epost</th><th></th><th></th>" +
         "</tr>" +
@@ -45,7 +46,8 @@ function slettPerson(id) {
     const url = "Person/Slett?id=" + id;
     $.get(url, function (OK) {
         if (OK) {
-            window.location.href = 'index1.html';
+            //window.location.href = 'velkommen.html';
+            $("#personene").html("<h3 style='color: red'>Alle opplysninger er slettet!</h3>");
         }
         else {
             $("#feil").html("Feil i db - prøv igjen senere");

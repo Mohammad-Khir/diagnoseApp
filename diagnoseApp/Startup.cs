@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -19,6 +20,7 @@ namespace diagnoseApp
         {
             services.AddControllers();
             services.AddDbContext<Model.PersonDB>(options => options.UseSqlite("data source=Person.db"));
+            //services.AddDbContext<Model.SymptomerDB>(options => options.UseSqlite("data source=Symptomer.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -27,6 +29,7 @@ namespace diagnoseApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //DBInit.Initialize(app);
             }
 
             app.UseRouting();

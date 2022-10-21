@@ -23,7 +23,14 @@
 
     const url = "/lagresymptomer";
     $.post(url, symptomer, function () {
-        
+        if (OK) {
+
+            hentPersonen();
+
+        }
+        else {
+            $("#feil").html("Feil i db - prøv igjen senere");
+        }
     });
 
 }

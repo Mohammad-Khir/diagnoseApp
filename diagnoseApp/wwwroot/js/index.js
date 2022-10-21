@@ -8,7 +8,8 @@
         epost: $("#epost").val()
     }
 
-    let ut = "<table class='table table-striped' style='background-color: aqua'>" +
+    let ut = "<h3> Hei " + person.fornavn + ", vil du bekrefte dine opplysninger? </h3>" +
+        "<table class='table table-striped' style='background-color: aqua'>" +
         "<tr>" +
         "<th>Fornavn</th><th>Etternavn</th><th>Fødselsnr</th><th>Adresse</th><th>Tlf</th><th>Epost</th><th></th><th></th>" +
         "</tr>" +
@@ -27,7 +28,7 @@
         "<tr>" +
         //"<td> <a class='btn btn-primary' href='endre.html?id=" + person.id + "'>Endre</a></td>" +
         //"<td> <button class='btn btn-success' onclick='slettKunde(" + person.id + ")'>Slett</button></td>" +
-        "<td> <a class='btn btn-primary' href='index1.html'>Tilbake</a> </td > " +
+        "<td> <a class='btn btn-primary' href='index.html'>Tilbake</a> </td > " +
         "<td> <button class='btn btn-success' onclick='bekreftReg()'>Bekreft</button> </td>" +
         "</tr>" +
         "</table>";
