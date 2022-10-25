@@ -1,6 +1,8 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using diagnoseApp.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +35,11 @@ namespace diagnoseApp.Controllers
             }
         }
 
-
+        public void Lagre1(Person innPerson)
+        {
+            _db.personer.Add(innPerson);
+            _db.SaveChanges();
+        }
         public async Task<List<Person>> HentAlle()
         {
             try
@@ -45,6 +51,11 @@ namespace diagnoseApp.Controllers
             {
                 return null;
             }
+        }
+
+        public List<Person> HentAlle1()
+        {
+            return _db.personer.ToList();
         }
 
         public async Task<bool> Slett(int id)
@@ -93,23 +104,7 @@ namespace diagnoseApp.Controllers
             {
                 return false;
             }
-        }
+        }  
 
-        /*public bool slettAlle()
-        {
-            try
-            {
-                List<Person> allePersonene = _db.personer.ToList();
-                _db.personer.Remove(allePersonene);
-                _db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }*/
-
-       
     }
 }
