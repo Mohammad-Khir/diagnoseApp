@@ -62,8 +62,9 @@ function hentEn() {
 
     const id = window.location.search.substring(1);
     const url = "Person/HentEn?" + id;
-    $.get(url, function (person) {
-        $("#id").val(person.id); // må ha med id inn skjemaet, hidden i html
+    // må ha med id inn skjemaet, hidden i html
+    $.get(url, function (person) {           
+        $("#id").val(person.id); 
         $("#fornavn").val(person.fornavn);
         $("#etternavn").val(person.etternavn);
         $("#fodselsnr").val(person.fodselsnr);

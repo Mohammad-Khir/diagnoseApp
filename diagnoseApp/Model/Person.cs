@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace diagnoseApp.Model
 {
     public class Person
@@ -11,7 +13,14 @@ namespace diagnoseApp.Model
         public string tlf { get; set; }
         public string epost { get; set; }
 
+        public  virtual Symptomer symptomer { get; set; }
+
+        public List <Symptomer> historikk { get; set; }
+
+
 
     }
+
+
 }
 
