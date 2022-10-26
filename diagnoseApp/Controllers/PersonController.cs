@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace diagnoseApp.Controllers
 {
-
+    
     [Route("[controller]/[action]")]
     public class PersonController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace diagnoseApp.Controllers
             _db = db;
         }
 
-        public async Task<bool> Lagre(Person innPerson)
+        public async Task<bool> Lagre(Person innPerson) // Lagre person info i DB
         {
             try
             {

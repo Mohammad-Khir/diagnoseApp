@@ -110,7 +110,7 @@ function slettPerson(id) {
     const url = "Person/Slett?id=" + id;
     $.get(url, function (OK) {
         if (OK) {
-            window.location.href = 'index1.html';
+            window.location.href = 'index.html';
             //hentAllePersoner();
         }
         else {
