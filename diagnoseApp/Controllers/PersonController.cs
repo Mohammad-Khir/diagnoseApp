@@ -19,7 +19,7 @@ namespace diagnoseApp.Controllers
             _db = db;
         }
 
-        public async Task<bool> Lagre(Person innPerson) // Lagre person info i DB
+        public async Task<bool> Lagre(Person innPerson) // metode for å lagre en person-info i DB
         {
             try
             {
@@ -34,7 +34,7 @@ namespace diagnoseApp.Controllers
         }
 
 
-        public async Task<List<Person>> HentAlle()
+        public async Task<List<Person>> HentAlle()  // hente alle personene som finnes i DB
         {
             try
             {
@@ -47,11 +47,11 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public async Task<bool> Slett(int id)
+        public async Task<bool> Slett(int id)   //slette en person fra DB ved hjelp av primary key (id)
         {
             try
             {
-                Person enPerson = _db.personer.Find(id);
+                Person enPerson = _db.personer.Find(id); // finne den ønskede personen
                 _db.personer.Remove(enPerson);
                 await _db.SaveChangesAsync();
                 return true;
@@ -62,7 +62,7 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public async Task<Person> HentEn(int id)
+        public async Task<Person> HentEn(int id)    //hente en person fra DB ved hjelp av primary key (id)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        public async Task<bool> Endre(Person endrePerson)
+        public async Task<bool> Endre(Person endrePerson)   // endre person-info
         {
             try
             {

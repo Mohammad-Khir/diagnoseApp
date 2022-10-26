@@ -1,56 +1,94 @@
 ﻿function diagnosere() {
-    
 
-    let ut = "pasienten har : " + $("input:radio[name=feber]:checked").val() +
-        "og har " + $("input:radio[name=hoste]:checked").val() +
-        "og har " + $("input:radio[name=hp]:checked").val() +
-        "og har " + $("input:radio[name=slapphet]:checked").val() +
-        "og har " + $("input:radio[name=tp]:checked").val();
+    let count = 0;
 
-    ut += "<br/>og nedsatt på : ";
+    let f = $("input:radio[name=feber]:checked").val();
+    let h = $("input:radio[name=hoste]:checked").val();
+    let hp = $("input:radio[name=hp]:checked").val();
+    let s = $("input:radio[name=slapphet]:checked").val();
+    let tp = $("input:radio[name=tp]:checked").val();
+    let ut = "pasienten har : "
+
+    if (f != null) ut += f + " , ";
+    if (f == "feber") count++;
+
+    if (h != null) ut += h + " , ";
+    if (h == "hoste") count++;
+
+    if (hp != null) ut += hp + " , ";
+    if (hp == "hodepine") count++;
+
+    if (s != null) ut += s + " , ";
+    if (s == "slapphet") count++;
+
+    if (tp != null) ut += tp + " , ";
+    if (tp == "tungpustehet") count++;
+
+
+    ut += ". Nedsatt på : ";
     const miste = $("input:checkbox[name=miste]:checked");
+    if (miste.length == 1) count++;
+    if (miste.length == 2) count += 2;
     for (let sans of miste) {
-        ut += sans.misteValue + "og ";
+        ut += sans.defaultValue + " ";
     }
 
-    ut += "<br/>og andre symptomer  : ";
+    if (miste.length == 0) ut += "ingen nedsatt.";
+    else ut += ".";
+
+
+
+    ut += " <br/>Andre symptomer  : ";
     const andre = $("input:checkbox[name=andre]:checked");
+    if (andre.length == 1) count++;
+    if (andre.length == 2) count += 2;
     for (let en of andre) {
-        ut += en.andreValue + "og ";
+        ut += en.defaultValue + " ";
     }
+    if (andre.length == 0) ut += "ingen andre symptomer.";
+    else ut += ".";
 
-    $("#result").html(ut);
 
-    const url = "/lagresymptomer";
-    $.post(url, symptomer, function () {
-        if (OK) {
 
-            hentPersonen();
+    //alert(count);
+    //alert(ut);
 
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+
+    //$("#result").html(ut);
+
+
+    //desied the result 
+
+
+    let result = "";
+    if (count >= 5) {
+        result += "Pasienten er mestsansenelig smitta";
+    } else {
+        result += "Pasienten er mestsansenelig ikke smitta";
+    }
+    //get data from dateInputField
+    let dato = $("#dato").val();
+    let test = {
+        dato: dato,
+        resultat: result
+    };
+    alert(dato);
+    alert(test);
+
+
+
+    const url = "Person/Lagre";
+    $.post(url, test, function () {
+        window.location.href = "result.html?id=" + test.id;
+
     });
-
 }
-
-function hentSymtomene() {
-    $.get("Symptom/HentAlle", function (symptomer) {
-        for (let symptom of symptomer) {
-            window.location.href = "result.html?id=" + symptom.id;
+function hentResultat(personer) {
+    for (let person of personer) {
+        
+        for (let test of person.tester) {
+            
+            
         }
-    });
-} 
-
-function hentPersonen() {
-    $.get("Person/HentAlle", function (personer) {
-        for (let person of personer) {
-            window.location.href = "velkommen.html?id=" + person.id;
-        }
-    });
-} 
-
-function formaterResultat() {
-
+    }
 }
