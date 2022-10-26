@@ -27,7 +27,7 @@ function endrePerson() {
         adresse: $("#adresse").val(),
         tlf: $("#tlf").val(),
         epost: $("#epost").val()
-      
+
     }
     $.post("Person/Endre", person, function (OK) {
         if (OK) {
