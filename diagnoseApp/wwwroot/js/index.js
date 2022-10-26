@@ -148,3 +148,101 @@ function visOpplysninger() {
 function slettVisEnPerson() {
     $("#personene").html("");
 }
+
+
+
+
+
+
+function slettAlle() {
+    $.get("/slettAlle", function () {
+        hentAlle();
+    });
+}
+
+
+
+
+
+
+
+
+/*<script>
+    function register () {
+        const forNavn = $("#fornavn").val();
+        const etterNavn= $("#etternavn").val();
+        const fødselsnr = $("#fødselsnr").val();
+        const adresse = $("#adresse").val();
+        const tlf= $("#tlf").val();
+        const epost= $("#epost").val();
+
+        let forNavn = true;
+        let riktigetterNavn = true;
+        let riktigfødselsnr = true;
+        let riktigadresse = true;
+        let riktigtlf = true;
+        let riktigepost= true;
+  
+        //Hvis alt fungere skal jeg legge til dette inn i min tabell og pushe det også
+        if (riktigforNavn && riktigetterNavn && riktigfødselsnr && riktigadresse && riktigtlf && riktigepost)
+        {
+            let personInfo = {
+                forNavn : fornavn,
+                etterNavn : etternavn,
+                fødselsnr : fødselsnr,
+                adresse : adresse,
+                tlf : tlf,
+                epost : epost,
+
+            };
+            $.post("/lagre", personInfo, function(){
+                hentAlle();
+            });
+
+            //tømmer alle input feltene
+
+            $("forNavn").val("");
+            $("etterNavn").val("");
+            $("fødselsnr").val("");
+            $("adresse").val("");
+            $("tlf").val("");
+            $("epost").val("");
+
+        }
+    }
+    function hentAlle(){
+        $.get("/hentAlle", function (data){
+            formaterData(data);
+        });
+    }
+    function formaterData(personData){
+        let ut ="";
+        ut += "<table class='table table-striped table-bordered'>";
+        ut+="<tr>" +
+            "<th>forNavn</th>" +
+            "<th>etterNavn</th>" +
+            "<th>fødselsnr</th>" +
+            "<th>adresse</th>" +
+            "<th>tlf</th>" +
+            "<th>epost</th>" +
+            "</tr>";
+        for (let p of personData) {
+            ut += "<tr>" +
+                "<td>" + p.forNavn + "</td>"+
+                "<td>" + p.etterNavn + "</td>" +
+                "<td>" + p.fødselsnr  + "</td>" +
+                "<td>" + p.adresse + "</td>" +
+                "<td>" + p.tlf + "</td>" +
+                "<td>" + p.epost + "</td>" +
+                "</tr>";
+        }
+        ut += "</table>";
+        $("#PersonInfo").html(ut);
+    }
+    function SlettAlleInfo() {
+        $.post("/slettAlle", function () {
+            hentAlle();
+        });
+    }
+
+</script>*/

@@ -12,7 +12,15 @@ namespace diagnoseApp.Model
         public string adresse { get; set; }
         public string tlf { get; set; }
         public string epost { get; set; }
-        public virtual List<Test> tester { get; set; }
+
+        public  virtual Symptomer symptomer { get; set; }
+
+        public List <Symptomer> historikk { get; set; }
+
+
+
     }
+
+
 }
 

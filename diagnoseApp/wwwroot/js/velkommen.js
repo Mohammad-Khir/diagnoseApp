@@ -15,7 +15,7 @@ function hentEnPerson() {
 
 
 function formaterEn(person) {
-    let ut = "<h2>Velkommen " + person.fornavn +" hos Dr.Health!</h2>" +
+    let ut = "<h2>Velkommen hos Dr.Health!</h2>" +
         "<table class='table table-striped' style='background-color: orange'>" +
         "<tr>" +
         "<th>Fornavn</th><th>Etternavn</th><th>Fødselsnr</th><th>Adresse</th><th>Tlf</th><th>Epost</th><th></th><th></th>" +
@@ -31,7 +31,7 @@ function formaterEn(person) {
         "<td> <button class='btn btn-danger' onclick='slettPerson(" + person.id + ")'>Slett</button></td>" +
         "</tr>" +
         "</table>" + "<br />" +
-        "<a class='btn btn-primary' href='main.html?id=" + person.id + "'>Start Diagnosering</a>";
+        "<a class='btn btn-primary' href='main.html?id=" + person.id + "'>Diagnoser</a>";
     $("#personene").html(ut);
 }
 
@@ -62,8 +62,9 @@ function hentEn() {
 
     const id = window.location.search.substring(1);
     const url = "Person/HentEn?" + id;
-    $.get(url, function (person) {
-        $("#id").val(person.id); // må ha med id inn skjemaet, hidden i html
+    // må ha med id inn skjemaet, hidden i html
+    $.get(url, function (person) {           
+        $("#id").val(person.id); 
         $("#fornavn").val(person.fornavn);
         $("#etternavn").val(person.etternavn);
         $("#fodselsnr").val(person.fodselsnr);
