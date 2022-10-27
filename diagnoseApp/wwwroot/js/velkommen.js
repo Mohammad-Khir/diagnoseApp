@@ -14,7 +14,7 @@ function hentEnPerson() {
 }
 
 
-function formaterEn(person) {
+function formaterEn(person) {   // formatere Person-opplysninger og vis de til brukeren
     let ut = "<h2>Velkommen " + person.fornavn +" hos Dr.Health!</h2>" +
         "<table class='table table-striped' style='background-color: orange'>" +
         "<tr>" +
@@ -35,18 +35,10 @@ function formaterEn(person) {
     $("#personene").html(ut);
 }
 
-/*function hentOgSlett() {
-    $.get("Person/HentAlle", function (personer) {
-        for (let person of personer) {
-            slettPerson(person.id);
-        }
-    });
-}*/
-function slettPerson(id) {
+function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id (Slett knapp)
     const url = "Person/Slett?id=" + id;
     $.get(url, function (OK) {
         if (OK) {
-            //window.location.href = 'velkommen.html';
             $("#personene").html("<h3 style='color: red'>Alle opplysninger er slettet!</h3>");
         }
         else {
@@ -58,7 +50,7 @@ function slettPerson(id) {
 
 
 function hentEn() {
-    // hent personen med person-id fra url og vis denne i skjemaet
+    // hent personen med person-id fra url og vis denne i skjemaet (Endre knapp)
 
     const id = window.location.search.substring(1);
     const url = "Person/HentEn?" + id;

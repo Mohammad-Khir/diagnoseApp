@@ -18,7 +18,7 @@ function hentEn() {
     });
 }
 
-function endrePerson() {
+function endrePerson() { //Endre person-opplysninger til personen som ble hentet i hentEn() og lagre endringene
     const person = {
         id: $("#id").val(), // må ha med denne som ikke har blitt endret for å vite hvilken person som skal endres
         fornavn: $("#fornavn").val(),
@@ -39,7 +39,7 @@ function endrePerson() {
     });
 }
 
-function hentPersonen() {
+function hentPersonen() {   //Hente de endrede person-opplysningene fra DB og flytte til Velkommen side med ønskede person-id
     $.get("Person/HentAlle", function (personer) {
         for (let person of personer) {
             window.location.href = "velkommen.html?id=" + person.id;

@@ -95,21 +95,6 @@ namespace diagnoseApp.Controllers
             }
         }
 
-        /*public bool slettAlle()
-        {
-            try
-            {
-                List<Person> allePersonene = _db.personer.ToList();
-                _db.personer.Remove(allePersonene);
-                _db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }*/
-
        
     }
 }

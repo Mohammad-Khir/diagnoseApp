@@ -66,29 +66,39 @@
     } else {
         result += "Pasienten er mestsansenelig ikke smitta";
     }
-    //get data from dateInputField
-    let dato = $("#dato").val();
-    let test = {
-        dato: dato,
-        resultat: result
-    };
-    alert(dato);
-    alert(test);
+    return result;
+    
+    
+}
 
 
 
+function lagreTest() {
+    const test = {
+        dato: $("#dato").val(),
+        resultat: diagnosere()
+    }
+    person.tester = test;
     const url = "Person/Lagre";
-    $.post(url, test, function () {
-        window.location.href = "result.html?id=" + test.id;
+    $.post(url, person.tester, function (OK) {
+        if (OK) {
 
+            window.location.href = "result.html?id=" + test.id;
+        }
+        else {
+            $("#feil").html("Feil i db - prøv igjen senere");
+        }
     });
 }
+
 function hentResultat(personer) {
+    let ut = "";
     for (let person of personer) {
-        
+        ut += person.fornavn + " " + person.etternavn + "<br>";
         for (let test of person.tester) {
-            
-            
+            ut += test.dato + "<br>";
+            ut += test.resultat;
         }
     }
+    $("#result").html(ut);
 }
