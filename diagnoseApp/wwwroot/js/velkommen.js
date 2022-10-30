@@ -48,7 +48,7 @@ function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id 
     });
 };
 
-
+/*
 function hentEn() {
     // hent personen med person-id fra url og vis denne i skjemaet (Endre knapp)
 
@@ -64,5 +64,5 @@ function hentEn() {
         $("#tlf").val(person.tlf);
         $("#epost").val(person.epost);
     });
-}
+}*/
 

@@ -19,11 +19,11 @@ namespace diagnoseApp.Model
 
                 var context = serviceScope.ServiceProvider.GetService<PersonDB>();
 
-                //Her må slette og opprette databasen hver gang når den skal initieres.
+                //Her slettes og opprette databasen hver gang når den skal initieres.
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                var nyPerson = new Person
+                /*var nyPerson = new Person
                 {
                     fornavn = "Ali",
                     etternavn = "Alsaid",
@@ -50,7 +50,7 @@ namespace diagnoseApp.Model
                 nyPerson.tester = nyeTester;
 
                 context.personer.Add(nyPerson);
-                context.SaveChanges();
+                context.SaveChanges();*/
             }
         }
     }

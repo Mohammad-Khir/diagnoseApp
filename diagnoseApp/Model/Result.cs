@@ -4,7 +4,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace diagnoseApp.Model
 {
-    public class Person
+    public class Result
     {
         public int id { get; set; }
         public string fornavn { get; set; }
@@ -13,8 +13,10 @@ namespace diagnoseApp.Model
         public string adresse { get; set; }
         public string tlf { get; set; }
         public string epost { get; set; }
-        //public virtual List<Test> tester { get; set; }
-
+        public int testid { get; set; }
+        public string dato { get; set; }
+        public string resultat { get; set; }
+        public int personid { get; set; }
 
 
     }

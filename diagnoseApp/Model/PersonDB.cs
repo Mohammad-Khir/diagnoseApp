@@ -18,14 +18,17 @@ namespace diagnoseApp.Model
             Database.EnsureCreated();
         }
 
-        public virtual DbSet<Person> personer { get; set; }
-        public virtual DbSet<Test> tester { get; set; }
+        public DbSet<Person> personer { get; set; }
+        public DbSet<Test> tester { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //public virtual DbSet<Person> personer { get; set; }
+        //public virtual DbSet<Test> tester { get; set; }
+
+        /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // må importere pakken Microsoft.EntityFrameworkCore.Proxies
             // og legge til"viritual" på de attriuttene som ønskes å lastes automatisk (LazyLoading)
             optionsBuilder.UseLazyLoadingProxies();
-        }
+        }*/
     }
 }

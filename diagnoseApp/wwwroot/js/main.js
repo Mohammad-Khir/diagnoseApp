@@ -1,4 +1,4 @@
-﻿function diagnosere() {
+﻿function diagnosere() { // for å velge aktuelle symptomer og bestemme resultatet
 
     let count = 0;
 
@@ -36,8 +36,6 @@
     if (miste.length == 0) ut += "ingen nedsatt.";
     else ut += ".";
 
-
-
     ut += " <br/>Andre symptomer  : ";
     const andre = $("input:checkbox[name=andre]:checked");
     if (andre.length == 1) count++;
@@ -50,55 +48,37 @@
 
 
 
-    //alert(count);
-    //alert(ut);
-
-
-    //$("#result").html(ut);
-
-
-    //desied the result 
-
-
     let result = "";
-    if (count >= 5) {
-        result += "Pasienten er mestsansenelig smitta";
+    if (count >= 3) {
+        result += "Mest sannsynlig smittet";
     } else {
-        result += "Pasienten er mestsansenelig ikke smitta";
+        result += "Mest sannsynlig ikke smittet";
     }
-    return result;
-    
-    
-}
-
-
-
-function lagreTest() {
+    //alert(result);
+    //get data from dateInputField
+    let dato = $("#dato").val();
     const test = {
-        dato: $("#dato").val(),
-        resultat: diagnosere()
-    }
-    person.tester = test;
-    const url = "Person/Lagre";
-    $.post(url, person.tester, function (OK) {
-        if (OK) {
+        personid: window.location.search.substring(1),
+        dato: dato,
+        resultat: result
+    };
 
-            window.location.href = "result.html?id=" + test.id;
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
-    });
-}
+    const url = "Person/LagreTest";
 
-function hentResultat(personer) {
-    let ut = "";
-    for (let person of personer) {
-        ut += person.fornavn + " " + person.etternavn + "<br>";
-        for (let test of person.tester) {
-            ut += test.dato + "<br>";
-            ut += test.resultat;
-        }
+    var params = {},
+        uriparams = location.search.substr(1).split('&');
+    for (var i = 0; i < uriparams.length; i++) {
+        var parameter = uriparams[i].split('=');
+        params[parameter[0]] = parameter[1];
     }
-    $("#result").html(ut);
+    let personid = params.id;
+
+    $.post(url, test, function (testid) {
+
+        // alert(ok);
+        window.location.href = "result.html?id=" + personid + '&testid=' + testid;
+
+    })
+
+
 }
