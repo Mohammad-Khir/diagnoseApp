@@ -23,6 +23,9 @@ function hentEnTest() {
     $.get(url, urlparams, function (result) {
 
         formaterEn(result);
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -55,6 +58,9 @@ function hentAlleTester() {
         
         formaterTester(tester);
         
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 

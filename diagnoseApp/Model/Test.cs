@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace diagnoseApp.DAL
+namespace diagnoseApp.Model
 {
     public class Test
     {

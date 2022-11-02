@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Logging;
 using diagnoseApp.DAL;
 using diagnoseApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace diagnoseApp.Controllers
@@ -16,46 +18,105 @@ namespace diagnoseApp.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonRepository _db;
+        private ILogger<PersonController> _log;
 
-        public PersonController(IPersonRepository db)
+        public PersonController(IPersonRepository db, ILogger<PersonController> log)
         {
             _db = db;
+            _log = log;
         }
-        public async Task<bool> Lagre(Person innPerson)
+        public async Task<ActionResult> Lagre(Person innPerson)
         {
-            return await _db.Lagre(innPerson);
+            if (ModelState.IsValid)
+            {
+                bool returOK = await _db.Lagre(innPerson);
+                if (!returOK)
+                {
+                    _log.LogInformation("Personen kunne ikke lagres!");
+                    return BadRequest("Personen kunne ikke lagres");
+                }
+                return Ok("Personen er lagret");
+            }
+            _log.LogInformation("Inputvaliderings feil");
+            return BadRequest("Inputvaliderings feil");
+
         }
 
-        public async Task<List<Person>> HentAlle()
+        public async Task<ActionResult> HentAlle()
         {
-            return await _db.HentAlle();
+            _log.LogInformation("Hallo loggen!");
+
+            List<Person> allePersoner = await _db.HentAlle();
+            return Ok(allePersoner); // returnerer alltid OK, null ved tom DB
         }
 
-        public async Task<bool> Slett(int id)
+        public async Task<ActionResult> Slett(int id)
         {
-            return await _db.Slett(id);
+            bool returOK = await _db.Slett(id);
+            if (!returOK)
+            {
+                _log.LogInformation("Personen kunne ikke slettes!");
+                return NotFound("Personen kunne ikke slettes!");
+            }
+            return Ok("Personen er slettet");
         }
 
-        public async Task<Person> HentEn(int id)
+        public async Task<ActionResult> HentEn(int id)
         {
-            return await _db.HentEn(id);
+            if (ModelState.IsValid)
+            {
+                Person personen = await _db.HentEn(id);
+                if (personen == null)
+                {
+                    _log.LogInformation("Personen ikke funnet!");
+                    return NotFound("Personen ikke funnet!");
+                }
+                return Ok(personen);
+            }
+            _log.LogInformation("Inputvaliderings feil");
+            return BadRequest("Inputvaliderings feil");
         }
 
-        public async Task<bool> Endre(Person endrePerson)
+        public async Task<ActionResult> Endre(Person endrePerson)
         {
-            return await _db.Endre(endrePerson);
+            if (ModelState.IsValid)
+            {
+                bool returOK = await _db.Endre(endrePerson);
+                if (!returOK)
+                {
+                    _log.LogInformation("Endringen av personen kunne ikke utføres");
+                    return NotFound("Endringen av personen kunne ikke utføres");
+                }
+                return Ok("Personen er endret");
+            }
+            _log.LogInformation("Inputvaliderings feil");
+            return BadRequest("Inputvaliderings feil");
         }
         public async Task<int> LagreTest(Test innTest)
         {
             return await _db.LagreTest(innTest);
+            /*int testid = await _db.LagreTest(innTest);
+            if (testid == 0)
+            {
+                _log.LogInformation("Testen kunne ikke lagres!");
+                return BadRequest("Testen kunne ikke lagres");
+            }
+            return Ok("Testen er lagret");*/
         }
-        public async Task<Result> HentEnTest(Test test)
+        public async Task<ActionResult> HentEnTest(Test test)
         {
-            return await _db.HentEnTest(test);
+            Result result =  await _db.HentEnTest(test);
+            if(result == null)
+            {
+                _log.LogInformation("Resultatet ikke funnet!");
+                return NotFound("Resultatet ikke funnet!");
+            }
+            return Ok(result);
         }
-        public async Task<List<Test>> HentAlleTester()
+        public async Task<ActionResult> HentAlleTester()
         {
-            return await _db.HentAlleTester();
+            List<Test> alleTester = await _db.HentAlleTester();
+            return Ok(alleTester);
         }
 
     }

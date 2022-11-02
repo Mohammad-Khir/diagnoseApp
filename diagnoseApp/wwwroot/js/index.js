@@ -1,4 +1,15 @@
-﻿
+﻿function validerOgRegPerson() {
+    const fornavnOK = validerFornavn($("#fornavn").val());
+    const etternavnOK = validerEtternavn($("#etternavn").val());
+    const fodselsnrOK = validerFodselsnr($("#fodselsnr").val());
+    const adresseOK = validerAdresse($("#adresse").val());
+    const tlfOK = validerTlf($("#tlf").val());
+    const epostOK = validerEpost($("#epost").val());
+    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK) {
+        regPerson();
+    }
+}
+
 function regPerson() {      // metode for registrering og formatering av ny person/pasient opplysninger uten lagring i DB
     const person = {
         fornavn: $("#fornavn").val(),
@@ -47,22 +58,19 @@ function bekreftReg() {     // lagre Person-opplysninger i DB (Bekreft knapp)
     }
 
     const url = "Person/Lagre";
-    $.post(url, person, function (OK) {
-        if (OK) {
+    $.post(url, person, function () {
+        hentPersonen();
 
-            hentPersonen();
-
-            $("#fornavn").val("");
-            $("#etternavn").val("");
-            $("#fodselsnr").val("");
-            $("#adresse").val("");
-            $("#tlf").val("");
-            $("#epost").val("");
-            
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+        $("#fornavn").val("");
+        $("#etternavn").val("");
+        $("#fodselsnr").val("");
+        $("#adresse").val("");
+        $("#tlf").val("");
+        $("#epost").val("");
+   
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -71,5 +79,8 @@ function hentPersonen() {       // Hente person-opplysninger fra DB og flytte ti
         for (let person of personer) {
             window.location.href = "velkommen.html?id=" + person.id;
         }
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }    

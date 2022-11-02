@@ -10,6 +10,9 @@ function hentEnPerson() {
     $.get(url, function (person) {
 
         formaterEn(person);
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -37,16 +40,14 @@ function formaterEn(person) {   // formatere Person-opplysninger og vis de til b
 
 function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id (Slett knapp)
     const url = "Person/Slett?id=" + id;
-    $.get(url, function (OK) {
-        if (OK) {
-            $("#personene").html("<h3 style='color: red'>Alle opplysninger er slettet!</h3>");
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+    $.get(url, function () {
 
+        $("#personene").html("<h3 style='color: red'>Alle opplysninger er slettet!</h3>");
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
-};
+}
 
 /*
 function hentEn() {

@@ -1,7 +1,7 @@
 ﻿using System;
-using diagnoseApp.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using diagnoseApp.Model;
 
 namespace diagnoseApp.DAL
 {

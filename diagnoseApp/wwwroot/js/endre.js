@@ -15,7 +15,22 @@ function hentEn() {
         $("#adresse").val(person.adresse);
         $("#tlf").val(person.tlf);
         $("#epost").val(person.epost);
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
+}
+
+function validerOgEndrePerson() {
+    const fornavnOK = validerFornavn($("#fornavn").val());
+    const etternavnOK = validerEtternavn($("#etternavn").val());
+    const fodselsnrOK = validerFodselsnr($("#fodselsnr").val());
+    const adresseOK = validerAdresse($("#adresse").val());
+    const tlfOK = validerTlf($("#tlf").val());
+    const epostOK = validerEpost($("#epost").val());
+    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK) {
+        endrePerson();
+    }
 }
 
 function endrePerson() { //Endre person-opplysninger til personen som ble hentet i hentEn() og lagre endringene
@@ -29,13 +44,12 @@ function endrePerson() { //Endre person-opplysninger til personen som ble hentet
         epost: $("#epost").val()
 
     }
-    $.post("Person/Endre", person, function (OK) {
-        if (OK) {
-            hentPersonen();
-        }
-        else {
-            $("#feil").html("Feil i db - prøv igjen senere");
-        }
+    $.post("Person/Endre", person, function () {
+        
+        hentPersonen();
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -44,6 +58,9 @@ function hentPersonen() {   //Hente de endrede person-opplysningene fra DB og fl
         for (let person of personer) {
             window.location.href = "velkommen.html?id=" + person.id;
         }
+    })
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 

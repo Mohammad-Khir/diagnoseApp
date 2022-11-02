@@ -79,6 +79,8 @@
         window.location.href = "result.html?id=" + personid + '&testid=' + testid;
 
     })
-
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
+    });
 
 }

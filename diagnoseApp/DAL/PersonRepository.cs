@@ -1,9 +1,9 @@
-﻿using diagnoseApp.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using diagnoseApp.Model;
 
 namespace diagnoseApp.DAL
 {
