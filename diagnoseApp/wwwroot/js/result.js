@@ -61,7 +61,7 @@ function hentAlleTester() {
 function formaterTester(tester) {
     let ut = "<table class='table table-striped'>" +
         "<tr>" +
-        "<th>PersonID</th><th>TestID</th><th>Dato</th><th>Resutat</th>" +
+        "<th>TestID</th><th>Dato</th><th>Resutat</th>" +
         "</tr>";
     for (let test of tester) {
         ut += "<tr>" +

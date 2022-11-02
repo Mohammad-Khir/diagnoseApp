@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using diagnoseApp.Model;
+using diagnoseApp.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +33,8 @@ namespace diagnoseApp
         // i tillegg må Microsoft.AspNetCore.NewtonsoftJson installeres som pakke
         );
             services.AddDbContext<PersonDB>(options => options.UseSqlite("Data Source=Person.db"));
+
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
