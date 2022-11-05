@@ -8,6 +8,36 @@ using diagnoseApp.Model;
 namespace diagnoseApp.DAL
 {
 
+    public class Personer
+     {
+         public int id { get; set; }
+         public string fornavn { get; set; }
+         public string etternavn { get; set; }
+         public string fodselsnr { get; set; }
+         public string adresse { get; set; }
+         public string tlf { get; set; }
+         public string epost { get; set; }
+         public byte[] Passord { get; set; }
+         public byte[] salt { get; set; }
+
+    }
+
+    /*public class Test
+    {
+        public int id { get; set; }
+        public string dato { get; set; }
+        public string resultat { get; set; }
+        public int personid { get; set; }
+    }*/
+
+    public class Brukere
+     {
+         public int Id { get; set; }
+         public string Brukernavn { get; set; }
+         public byte[] Passord { get; set; }
+         public byte[] Salt { get; set; }
+     }
+
     public class PersonDB : DbContext
     {
         public PersonDB(DbContextOptions<PersonDB> options) : base(options)
@@ -20,6 +50,8 @@ namespace diagnoseApp.DAL
 
         public DbSet<Person> personer { get; set; }
         public DbSet<Test> tester { get; set; }
+
+        public DbSet<Brukere> brukere { get; set; }
 
         //public virtual DbSet<Person> personer { get; set; }
         //public virtual DbSet<Test> tester { get; set; }

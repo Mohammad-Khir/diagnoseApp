@@ -15,6 +15,7 @@ namespace diagnoseApp.DAL
         Task<int> LagreTest(Test innTest);
         Task<Result> HentEnTest(Test test);
         Task<List<Test>> HentAlleTester();
+        Task<bool> LoggInn(Bruker bruker);
 
     }
 }

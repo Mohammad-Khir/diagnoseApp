@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using diagnoseApp.Model;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace diagnoseApp.DAL
             {
 
                 var context = serviceScope.ServiceProvider.GetService<PersonDB>();
+                var db = serviceScope.ServiceProvider.GetService<PersonDB>();
 
                 //Her slettes og opprette databasen hver gang når den skal initieres.
                 context.Database.EnsureDeleted();
@@ -51,6 +53,58 @@ namespace diagnoseApp.DAL
 
                 context.personer.Add(nyPerson);
                 context.SaveChanges();*/
+
+                var nyPerson = new Person
+                {
+                    fornavn = "Ali",
+                    etternavn = "Alsaid",
+                    fodselsnr = "05.12.2018",
+                    adresse = "Osloveien7",
+                    tlf = "12345678",
+                    epost = "ali@gmail.com"
+                };
+                var test1 = new Test
+                {
+                    dato = "23.05.2019",
+                    resultat = "påvist Covid19",
+                    personid = 1
+                };
+                var test2 = new Test
+                {
+                    dato = "23.10.2022",
+                    resultat = "Ikke påvist Covid19",
+                    personid = 1
+                };
+
+                context.personer.Add(nyPerson);
+                context.tester.Add(test1);
+                context.tester.Add(test2);
+                context.SaveChanges();
+
+                /*var nyResult = new Result
+                {
+                    fornavn = "Ali",
+                    etternavn = "Alsaid",
+                    fodselsnr = "05.12.2018",
+                    adresse = "Osloveien7",
+                    tlf = "12345678",
+                    epost = "ali@gmail.com",
+                    testid = 1,
+                    dato = "12.12.2022",
+                    resultat = "Påvist Cocid19"
+                };*/
+
+                // lag en påoggingsbruker
+                var bruker = new Brukere();
+                bruker.Brukernavn = "Admin";
+                string passord = "Test11";
+                byte[] salt = PersonRepository.LagSalt();
+                byte[] hash = PersonRepository.LagHash(passord, salt);
+                bruker.Passord = hash;
+                bruker.Salt = salt;
+                db.brukere.Add(bruker);
+
+                db.SaveChanges();
             }
         }
     }

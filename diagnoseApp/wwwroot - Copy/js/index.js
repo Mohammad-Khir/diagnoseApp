@@ -69,12 +69,8 @@ function bekreftReg() {     // lagre Person-opplysninger i DB (Bekreft knapp)
         $("#epost").val("");
    
     })
-    .fail(function (feil) {
-        if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
-            window.location.href = 'loggInn.html';
-        } else {
-            $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
-        }
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -84,11 +80,7 @@ function hentPersonen() {       // Hente person-opplysninger fra DB og flytte ti
             window.location.href = "velkommen.html?id=" + person.id;
         }
     })
-    .fail(function (feil) {
-        if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
-            window.location.href = 'loggInn.html';
-        } else {
-            $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
-        }
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }    

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace diagnoseApp.Model
+namespace diagnoseApp.DAL
 {
     public class Person
     {
@@ -22,8 +22,8 @@ namespace diagnoseApp.Model
         public string epost { get; set; }
         //public virtual List<Test> tester { get; set; }
 
-
-
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")]
+        public string passord { get; set; }
     }
 
 

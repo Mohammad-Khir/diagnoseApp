@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Castle.Core.Logging;
 using diagnoseApp.DAL;
 using diagnoseApp.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using static System.Net.Mime.MediaTypeNames;
+using Bruker = diagnoseApp.Model.Bruker;
 
 namespace diagnoseApp.Controllers
 {
@@ -17,8 +19,11 @@ namespace diagnoseApp.Controllers
     [Route("[controller]/[action]")]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonRepository _db;
+        private IPersonRepository _db;
+
         private ILogger<PersonController> _log;
+
+        private const string _loggetInn = "loggetInn";
 
         public PersonController(IPersonRepository db, ILogger<PersonController> log)
         {
@@ -27,6 +32,10 @@ namespace diagnoseApp.Controllers
         }
         public async Task<ActionResult> Lagre(Person innPerson)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {
                 bool returOK = await _db.Lagre(innPerson);
@@ -44,7 +53,10 @@ namespace diagnoseApp.Controllers
 
         public async Task<ActionResult> HentAlle()
         {
-            _log.LogInformation("Hallo loggen!");
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
 
             List<Person> allePersoner = await _db.HentAlle();
             return Ok(allePersoner); // returnerer alltid OK, null ved tom DB
@@ -52,6 +64,10 @@ namespace diagnoseApp.Controllers
 
         public async Task<ActionResult> Slett(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             bool returOK = await _db.Slett(id);
             if (!returOK)
             {
@@ -63,6 +79,10 @@ namespace diagnoseApp.Controllers
 
         public async Task<ActionResult> HentEn(int id)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {
                 Person personen = await _db.HentEn(id);
@@ -79,6 +99,10 @@ namespace diagnoseApp.Controllers
 
         public async Task<ActionResult> Endre(Person endrePerson)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {
                 bool returOK = await _db.Endre(endrePerson);
@@ -105,6 +129,10 @@ namespace diagnoseApp.Controllers
         }
         public async Task<ActionResult> HentEnTest(Test test)
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             Result result =  await _db.HentEnTest(test);
             if(result == null)
             {
@@ -115,8 +143,35 @@ namespace diagnoseApp.Controllers
         }
         public async Task<ActionResult> HentAlleTester()
         {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            {
+                return Unauthorized();
+            }
             List<Test> alleTester = await _db.HentAlleTester();
             return Ok(alleTester);
+        }
+
+        public async Task<ActionResult> LoggInn(Bruker bruker)
+        {
+            if (ModelState.IsValid)
+            {
+                bool returnOK = await _db.LoggInn(bruker);
+                if (!returnOK)
+                {
+                    _log.LogInformation("Innloggingen feilet for bruker"+bruker.Brukernavn);
+                    HttpContext.Session.SetString(_loggetInn, "");
+                    return Ok(false);
+                }
+                HttpContext.Session.SetString(_loggetInn, "LoggetInn");
+                return Ok(true);
+            }
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering på server");
+        }
+
+        public void LoggUt()
+        {
+            HttpContext.Session.SetString(_loggetInn, "");
         }
 
     }

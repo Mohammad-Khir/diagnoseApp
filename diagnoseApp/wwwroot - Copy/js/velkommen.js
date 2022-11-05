@@ -11,12 +11,8 @@ function hentEnPerson() {
 
         formaterEn(person);
     })
-    .fail(function (feil) {
-        if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
-        } else {
-            $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
-        }
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 
@@ -48,12 +44,8 @@ function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id 
 
         $("#personene").html("<h3 style='color: red'>Alle opplysninger er slettet!</h3>");
     })
-    .fail(function (feil) {
-        if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
-        } else {
-            $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
-        }
+    .fail(function () {
+        $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
 }
 

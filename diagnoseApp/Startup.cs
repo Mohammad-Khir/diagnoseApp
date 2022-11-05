@@ -35,6 +35,16 @@ namespace diagnoseApp
             services.AddDbContext<PersonDB>(options => options.UseSqlite("Data Source=Person.db"));
 
             services.AddScoped<IPersonRepository, PersonRepository>();
+
+            // I tillegg til under må pakken Microsoft.AspNetCore.Session legges til i NuGet
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(1800); // 30 minutter
+                options.Cookie.IsEssential = true;
+            });
+            // Denne må også være med:
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,12 +54,15 @@ namespace diagnoseApp
             {
                 app.UseDeveloperExceptionPage();
                 loggerFactory.AddFile("Logs/PersonLog.txt");
-                DBInit.init(app);
+                DBInit.init(app);// denne må fjernes dersom vi vil beholde dataene i databasen og ikke initialisere 
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // UseSession!
+            app.UseSession();
 
             app.UseStaticFiles();
 

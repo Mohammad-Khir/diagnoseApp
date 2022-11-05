@@ -4,16 +4,23 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using diagnoseApp.Model;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Serilog;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Logging;
 
 namespace diagnoseApp.DAL
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly PersonDB _db;
+        private PersonDB _db;
 
-        public PersonRepository(PersonDB db)
+        private ILogger<PersonRepository> _log;
+
+        public PersonRepository(PersonDB db, ILogger<PersonRepository> log)
         {
             _db = db;
+            _log = log;
         }
 
         public async Task<bool> Lagre(Person innPerson) // metode for å lagre en person-info i DB
@@ -151,6 +158,45 @@ namespace diagnoseApp.DAL
             catch
             {
                 return null;
+            }
+        }
+
+        public static byte[] LagHash(string passord, byte[] salt)
+        {
+            return KeyDerivation.Pbkdf2(
+                                password: passord,
+                                salt: salt,
+                                prf: KeyDerivationPrf.HMACSHA512,
+                                iterationCount: 1000,
+                                numBytesRequested: 32);
+        }
+
+        public static byte[] LagSalt()
+        {
+            var csp = new RNGCryptoServiceProvider();
+            var salt = new byte[24];
+            csp.GetBytes(salt);
+            return salt;
+        }
+
+        public async Task<bool> LoggInn(Bruker bruker)
+        {
+            try
+            {
+                Brukere funnetBruker = await _db.brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
+                // sjekk passordet
+                byte[] hash = LagHash(bruker.Passord, funnetBruker.Salt);
+                bool ok = hash.SequenceEqual(funnetBruker.Passord);
+                if (ok)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
             }
         }
 
