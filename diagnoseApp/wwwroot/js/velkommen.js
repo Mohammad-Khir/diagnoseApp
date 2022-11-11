@@ -56,6 +56,11 @@ function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id 
         }
     });
 }
+function loggUt() {
+    $.get("Person/LoggUt", function () {
+        window.location.href = 'home.html';
+    });
+}
 
 /*
 function hentEn() {

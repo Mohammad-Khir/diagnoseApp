@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Serilog;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
+using System.Text;
 
 namespace diagnoseApp.DAL
 {
@@ -27,12 +29,22 @@ namespace diagnoseApp.DAL
         {
             try
             {
-                _db.personer.Add(innPerson);
+                var nyPersonRad = new Personene();
+                nyPersonRad.fornavn = innPerson.fornavn;
+                nyPersonRad.etternavn = innPerson.etternavn;
+                nyPersonRad.fodselsnr = innPerson.fodselsnr;
+                nyPersonRad.adresse = innPerson.adresse;
+                nyPersonRad.tlf = innPerson.tlf;
+                nyPersonRad.epost = innPerson.epost;
+                nyPersonRad.passord = LagHash(innPerson.passord, LagSalt());
+                nyPersonRad.salt = LagSalt();
+                _db.personene.Add(nyPersonRad);
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
@@ -42,11 +54,21 @@ namespace diagnoseApp.DAL
         {
             try
             {
-                List<Person> allePersonene = await _db.personer.ToListAsync(); // hent hele person-tabellen
+                List<Person> allePersonene = await _db.personene.Select(p => new Person
+                {
+                    id = p.id,
+                    fornavn = p.fornavn,
+                    etternavn = p.etternavn,
+                    fodselsnr = p.fodselsnr,
+                    adresse = p.adresse,
+                    tlf = p.tlf,
+                    epost = p.epost
+                }).ToListAsync();
                 return allePersonene;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return null;
             }
         }
@@ -55,13 +77,14 @@ namespace diagnoseApp.DAL
         {
             try
             {
-                Person enPerson = await _db.personer.FindAsync(id); // finne den ønskede personen
-                _db.personer.Remove(enPerson);
+                Personene enPerson = await _db.personene.FindAsync(id); // finne den ønskede personen
+                _db.personene.Remove(enPerson);
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
@@ -70,11 +93,22 @@ namespace diagnoseApp.DAL
         {
             try
             {
-                Person enPerson = await _db.personer.FindAsync(id);
-                return enPerson;
+                Personene enPerson = await _db.personene.FindAsync(id);
+                var hentetPerson = new Person()
+                {
+                    id = enPerson.id,
+                    fornavn = enPerson.fornavn,
+                    etternavn = enPerson.etternavn,
+                    fodselsnr = enPerson.fodselsnr,
+                    adresse = enPerson.adresse,
+                    tlf = enPerson.tlf,
+                    epost = enPerson.epost
+                };
+                return hentetPerson;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return null;
             }
         }
@@ -83,18 +117,20 @@ namespace diagnoseApp.DAL
         {
             try
             {
-                Person enPerson = await _db.personer.FindAsync(endrePerson.id);
+                var enPerson = await _db.personene.FindAsync(endrePerson.id);
                 enPerson.fornavn = endrePerson.fornavn;
                 enPerson.etternavn = endrePerson.etternavn;
                 enPerson.fodselsnr = endrePerson.fodselsnr;
                 enPerson.adresse = endrePerson.adresse;
                 enPerson.tlf = endrePerson.tlf;
                 enPerson.epost = endrePerson.epost;
+                enPerson.passord = LagHash(endrePerson.passord, LagSalt());
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
         }
@@ -120,7 +156,7 @@ namespace diagnoseApp.DAL
             {
                 Result enResult = new Result();
 
-                Person enPerson = await _db.personer.FindAsync(test.personid);
+                var enPerson = await _db.personene.FindAsync(test.personid);
                 if (enPerson != null)
                 {
                     enResult.fornavn = enPerson.fornavn;
@@ -138,6 +174,7 @@ namespace diagnoseApp.DAL
                     enResult.testid = enTest.id;
                     enResult.dato = enTest.dato;
                     enResult.resultat = enTest.resultat;
+                    enResult.personid = enPerson.id;
                 }
 
 
@@ -184,9 +221,30 @@ namespace diagnoseApp.DAL
             try
             {
                 Brukere funnetBruker = await _db.brukere.FirstOrDefaultAsync(b => b.Brukernavn == bruker.Brukernavn);
-                // sjekk passordet
+                
                 byte[] hash = LagHash(bruker.Passord, funnetBruker.Salt);
                 bool ok = hash.SequenceEqual(funnetBruker.Passord);
+                if (ok)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> LoggInnPerson(Person person)
+        {
+            try
+            {
+                Personene funnetPerson = await _db.personene.FirstOrDefaultAsync(p => p.epost == person.epost);
+                
+                byte[] hash = LagHash(person.passord, funnetPerson.salt);
+                bool ok = hash.SequenceEqual(funnetPerson.passord);
                 if (ok)
                 {
                     return true;

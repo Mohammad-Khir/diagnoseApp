@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using diagnoseApp.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace diagnoseApp.DAL
 {
@@ -16,6 +17,7 @@ namespace diagnoseApp.DAL
         Task<Result> HentEnTest(Test test);
         Task<List<Test>> HentAlleTester();
         Task<bool> LoggInn(Bruker bruker);
+        Task<bool> LoggInnPerson(Person person);
 
     }
 }

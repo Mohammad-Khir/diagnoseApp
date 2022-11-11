@@ -15,6 +15,7 @@ function hentEn() {
         $("#adresse").val(person.adresse);
         $("#tlf").val(person.tlf);
         $("#epost").val(person.epost);
+        $("#passord").val(person.passord);
     })
     .fail(function (feil) {
         if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
@@ -32,7 +33,8 @@ function validerOgEndrePerson() {
     const adresseOK = validerAdresse($("#adresse").val());
     const tlfOK = validerTlf($("#tlf").val());
     const epostOK = validerEpost($("#epost").val());
-    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK) {
+    const passordOK = validerPassord($("#passord").val());
+    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK && passordOK) {
         endrePerson();
     }
 }
@@ -45,7 +47,8 @@ function endrePerson() { //Endre person-opplysninger til personen som ble hentet
         fodselsnr: $("#fodselsnr").val(),
         adresse: $("#adresse").val(),
         tlf: $("#tlf").val(),
-        epost: $("#epost").val()
+        epost: $("#epost").val(),
+        passord: $("#passord").val()
 
     }
     $.post("Person/Endre", person, function () {
@@ -73,6 +76,12 @@ function hentPersonen() {   //Hente de endrede person-opplysningene fra DB og fl
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }
+    });
+}
+
+function loggUt() {
+    $.get("Person/LoggUt", function () {
+        window.location.href = 'home.html';
     });
 }
 

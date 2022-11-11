@@ -5,7 +5,8 @@
     const adresseOK = validerAdresse($("#adresse").val());
     const tlfOK = validerTlf($("#tlf").val());
     const epostOK = validerEpost($("#epost").val());
-    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK) {
+    const passordOK = validerPassord($("#passord").val());
+    if (fornavnOK && etternavnOK && fodselsnrOK && adresseOK && tlfOK && epostOK && passordOK) {
         regPerson();
     }
 }
@@ -17,7 +18,8 @@ function regPerson() {      // metode for registrering og formatering av ny pers
         fodselsnr: $("#fodselsnr").val(),
         adresse: $("#adresse").val(),
         tlf: $("#tlf").val(),
-        epost: $("#epost").val()
+        epost: $("#epost").val(),
+        passord: $("#passord").val()
     }
 
     let ut = "<h3> Hei " + person.fornavn + ", vil du bekrefte dine opplysninger? </h3>" +
@@ -54,7 +56,8 @@ function bekreftReg() {     // lagre Person-opplysninger i DB (Bekreft knapp)
         fodselsnr: $("#fodselsnr").val(),
         adresse: $("#adresse").val(),
         tlf: $("#tlf").val(),
-        epost: $("#epost").val()
+        epost: $("#epost").val(),
+        passord: $("#passord").val()
     }
 
     const url = "Person/Lagre";
@@ -67,10 +70,11 @@ function bekreftReg() {     // lagre Person-opplysninger i DB (Bekreft knapp)
         $("#adresse").val("");
         $("#tlf").val("");
         $("#epost").val("");
+        $("#passord").val("");
    
     })
     .fail(function (feil) {
-        if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
+        if (feil.status == 401) {  
             window.location.href = 'loggInn.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
@@ -85,7 +89,7 @@ function hentPersonen() {       // Hente person-opplysninger fra DB og flytte ti
         }
     })
     .fail(function (feil) {
-        if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
+        if (feil.status == 401) {  
             window.location.href = 'loggInn.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using diagnoseApp.DAL;
+using diagnoseApp.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace diagnoseApp
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -43,7 +46,7 @@ namespace diagnoseApp
                 options.IdleTimeout = TimeSpan.FromSeconds(1800); // 30 minutter
                 options.Cookie.IsEssential = true;
             });
-            // Denne må også være med:
+            
             services.AddDistributedMemoryCache();
         }
 

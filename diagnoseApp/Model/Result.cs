@@ -12,7 +12,7 @@ namespace diagnoseApp.Model
         public string fornavn { get; set; }
         [RegularExpression(@"[a-zA-ZæøåÆØÅ. \-]{2,20}")]
         public string etternavn { get; set; }
-        [RegularExpression(@"[0-9.]{10}")]
+        [RegularExpression(@"[0-9.]{11}")]
         public string fodselsnr { get; set; }
         [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,50}")]
         public string adresse { get; set; }

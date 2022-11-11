@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <!--bootstrap link-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css">
+
+    <!--jquery link-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--FONT AWESOME-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,13 +19,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
 
-    <!--bootstrap link-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css">
-
-    <!--jquery link-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/result.js"></script>
-
+    <script src="js/index1.js"></script>
+    <script src="js/loggUt.js"></script>
+    <script src="js/validering.js"></script>
     <title>Dr.Health</title>
 </head>
 <body>
@@ -32,23 +33,23 @@
         </label>
         <ul class="navbar">
             <li><a href="home.html">Hjemmeside</a></li>
-            <li><a href="#footer">Kontakt oss</a></li>
-            <li><a onclick=loggUt()>Logg ut</a></li>
+            <li><a href="index.html">Registrering</a></li>
+            <li><a href="loggInnPerson.html">Logg inn</a></li>
+            <li><a href="loggInn.html">Admin</a></li>
         </ul>
     </header>
 
     <main>
 
-
-        <!--her legger vi til resulater fra input felter-->
-        <section id="theResult">
-            <article class="article3">
-
-                <div id="result">
-                    her
+        <section id="theCalculator">
+            <article>
+                <div class="container">
+                    <h1>Alle personene:   </h1>
+                    <span><button class="btn btn-primary" onclick="loggUt()">Logg ut</button></span>
+                    <div id="personene"></div>
+                    <div id="feil" style="color: red"></div>
+                    <a href="index.html" class="btn btn-primary">Lagre ny person</a>
                 </div>
-                <div id="tidligereTest"> </div>
-                <div id="feil"></div>
             </article>
         </section>
 
@@ -83,7 +84,7 @@
 
             <section class="footer-section">
                 <a href="home.html">Home</a>
-                <a href="main.html">Registration</a>
+                <a href="index.html">Registration</a>
                 <a href="result.html">Result</a>
                 <a href="#footer">Contact</a>
             </section>

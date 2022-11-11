@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using diagnoseApp.Model;
+using System.Diagnostics.CodeAnalysis;
 
 namespace diagnoseApp.DAL
 {
-
-    public class Personer
+    [ExcludeFromCodeCoverage]
+    public class Personene
      {
          public int id { get; set; }
          public string fornavn { get; set; }
@@ -17,19 +18,13 @@ namespace diagnoseApp.DAL
          public string adresse { get; set; }
          public string tlf { get; set; }
          public string epost { get; set; }
-         public byte[] Passord { get; set; }
+         public byte[] passord { get; set; }
          public byte[] salt { get; set; }
 
     }
 
-    /*public class Test
-    {
-        public int id { get; set; }
-        public string dato { get; set; }
-        public string resultat { get; set; }
-        public int personid { get; set; }
-    }*/
 
+    [ExcludeFromCodeCoverage]
     public class Brukere
      {
          public int Id { get; set; }
@@ -38,6 +33,7 @@ namespace diagnoseApp.DAL
          public byte[] Salt { get; set; }
      }
 
+    [ExcludeFromCodeCoverage]
     public class PersonDB : DbContext
     {
         public PersonDB(DbContextOptions<PersonDB> options) : base(options)
@@ -48,7 +44,8 @@ namespace diagnoseApp.DAL
             Database.EnsureCreated();
         }
 
-        public DbSet<Person> personer { get; set; }
+        //public DbSet<Person> personer { get; set; }
+        public DbSet<Personene> personene { get; set; }
         public DbSet<Test> tester { get; set; }
 
         public DbSet<Brukere> brukere { get; set; }

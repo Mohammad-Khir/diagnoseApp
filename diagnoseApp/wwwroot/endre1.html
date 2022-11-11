@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap" rel="stylesheet">
 
-    <script src="js/endre.js"></script>
+    <script src="js/endre1.js"></script>
     <script src="js/validering.js"></script>
     <title>Dr.Health</title>
 </head>
@@ -31,9 +31,10 @@
             <span class="navicon"></span>
         </label>
         <ul class="navbar">
-            <li><a href="home.html">Hjemmeside</a></li>
-            <li><a href="#footer">Kontakt oss</a></li>
-            <li><a onclick=loggUt()>Logg ut</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="index.html">Registration</a></li>
+            <li><a href="result.html">Result</a></li>
+            <li><a href="#footer">Contact us</a></li>
         </ul>
     </header>
 
@@ -76,11 +77,6 @@
                                     <label for="epost">Epost</label>
                                     <input type="text" class="form-control" id="epost" onchange="validerEpost(this.value)" placeholder="fyll inn epost" /><br />
                                     <span id="feilEpost" style="color: red"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="epost">Passord</label>
-                                    <input type="password" class="form-control" id="passord" onchange="validerPassord(this.value)" placeholder="Minst fire tegn" /><br />
-                                    <span id="feilPassord" style="color: red"></span>
                                 </div>
                             </form>
                             <button class="btn btn-primary" onclick="validerOgEndrePerson()">Bekrefe endringer</button><br />

@@ -54,14 +54,16 @@ namespace diagnoseApp.DAL
                 context.personer.Add(nyPerson);
                 context.SaveChanges();*/
 
-                var nyPerson = new Person
+                /*var person1 = new Personene
                 {
                     fornavn = "Ali",
                     etternavn = "Alsaid",
-                    fodselsnr = "05.12.2018",
+                    fodselsnr = "05129122018",
                     adresse = "Osloveien7",
                     tlf = "12345678",
-                    epost = "ali@gmail.com"
+                    epost = "ali@gmail.com,"
+                    //passord = "ali"
+
                 };
                 var test1 = new Test
                 {
@@ -74,37 +76,76 @@ namespace diagnoseApp.DAL
                     dato = "23.10.2022",
                     resultat = "Ikke påvist Covid19",
                     personid = 1
-                };
-
-                context.personer.Add(nyPerson);
-                context.tester.Add(test1);
-                context.tester.Add(test2);
-                context.SaveChanges();
-
-                /*var nyResult = new Result
-                {
-                    fornavn = "Ali",
-                    etternavn = "Alsaid",
-                    fodselsnr = "05.12.2018",
-                    adresse = "Osloveien7",
-                    tlf = "12345678",
-                    epost = "ali@gmail.com",
-                    testid = 1,
-                    dato = "12.12.2022",
-                    resultat = "Påvist Cocid19"
                 };*/
+                /*var person2 = new Person
+                {
+                    fornavn = "Basem",
+                    etternavn = "Alsaid",
+                    fodselsnr = "05122018098",
+                    adresse = "Lillestrøm7",
+                    tlf = "12345678",
+                    epost = "basem@gmail.com"
+                };
+                var test3 = new Test
+                {
+                    dato = "23.05.2019",
+                    resultat = "påvist Covid19",
+                    personid = 2
+                };
+                var test4 = new Test
+                {
+                    dato = "23.10.2022",
+                    resultat = "Ikke påvist Covid19",
+                    personid = 2
+                };*/
+
+                //context.personene.Add(person1);
+                //context.tester.Add(test1);
+                //context.tester.Add(test2);
+                //context.personer.Add(person2);
+                //context.tester.Add(test3);
+                //context.tester.Add(test4);
+                //context.SaveChanges();
+                var person = new Personene();
+                person.fornavn = "Omar";
+                person.etternavn = "M";
+                person.fodselsnr = "12345678900";
+                person.adresse = "Asker";
+                person.tlf = "12345678";
+                person.epost = "Omar";
+                string passord = "Omar5";
+                byte[] salt = PersonRepository.LagSalt();
+                byte[] hash = PersonRepository.LagHash(passord, salt);
+                person.passord = hash;
+                person.salt = salt;
+                db.personene.Add(person);
+
+                db.SaveChanges();
+
 
                 // lag en påoggingsbruker
                 var bruker = new Brukere();
-                bruker.Brukernavn = "Admin";
-                string passord = "Test11";
-                byte[] salt = PersonRepository.LagSalt();
-                byte[] hash = PersonRepository.LagHash(passord, salt);
-                bruker.Passord = hash;
-                bruker.Salt = salt;
+                bruker.Brukernavn = "Jeg";
+                string Passord = "Jeg5";
+                byte[] Salt = PersonRepository.LagSalt();
+                byte[] Hash = PersonRepository.LagHash(Passord, Salt);
+                bruker.Passord = Hash;
+                bruker.Salt = Salt;
                 db.brukere.Add(bruker);
 
                 db.SaveChanges();
+
+                // lag en påoggingsPerson
+                /*var person = new Personene();
+                person.epost = "ali";
+                string Passord = "ali";
+                byte[] saltPerson = PersonRepository.LagSalt();
+                byte[] hashPerson = PersonRepository.LagHash(Passord, saltPerson);
+                person.passord = hashPerson;
+                person.salt = saltPerson;
+                db.personene.Add(person);
+
+                db.SaveChanges();*/
             }
         }
     }

@@ -24,7 +24,7 @@ function validerEtternavn(etternavn) {
     }
 }
 function validerFodselsnr(fodselsnr) {
-    var regexp = /^[0-9.]{10}$/;
+    var regexp = /^[0-9.]{11}$/;
     var ok = regexp.test(fodselsnr);
     if (!ok) {
         $("#feilFodselsnr").html("Fodslesnr må fylles på riktig form");
@@ -89,10 +89,10 @@ function validerBrukernavn(brukernavn) {
 }
 
 function validerPassord(passord) {
-    const regexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const regexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/;
     const ok = regexp.test(passord);
     if (!ok) {
-        $("#feilPassord").html("Passordet må bestå minimum 6 tegn, minst en bokstav og et tall");
+        $("#feilPassord").html("Passordet må bestå minimum 4 tegn, minst en bokstav og et tall");
         return false;
     }
     else {

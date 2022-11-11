@@ -24,6 +24,7 @@ namespace diagnoseApp.Controllers
         private ILogger<PersonController> _log;
 
         private const string _loggetInn = "loggetInn";
+        private const string _ikkeLoggetInn = "";
 
         public PersonController(IPersonRepository db, ILogger<PersonController> log)
         {
@@ -34,7 +35,7 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             if (ModelState.IsValid)
             {
@@ -55,7 +56,7 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
 
             List<Person> allePersoner = await _db.HentAlle();
@@ -66,7 +67,7 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             bool returOK = await _db.Slett(id);
             if (!returOK)
@@ -81,27 +82,23 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
-            if (ModelState.IsValid)
+            
+            Person personen = await _db.HentEn(id);
+            if (personen == null)
             {
-                Person personen = await _db.HentEn(id);
-                if (personen == null)
-                {
-                    _log.LogInformation("Personen ikke funnet!");
-                    return NotFound("Personen ikke funnet!");
-                }
-                return Ok(personen);
+                _log.LogInformation("Personen ikke funnet!");
+                return NotFound("Personen ikke funnet!");
             }
-            _log.LogInformation("Inputvaliderings feil");
-            return BadRequest("Inputvaliderings feil");
+            return Ok(personen);
         }
 
         public async Task<ActionResult> Endre(Person endrePerson)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             if (ModelState.IsValid)
             {
@@ -131,7 +128,7 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             Result result =  await _db.HentEnTest(test);
             if(result == null)
@@ -145,7 +142,7 @@ namespace diagnoseApp.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             List<Test> alleTester = await _db.HentAlleTester();
             return Ok(alleTester);
@@ -158,11 +155,11 @@ namespace diagnoseApp.Controllers
                 bool returnOK = await _db.LoggInn(bruker);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innloggingen feilet for bruker"+bruker.Brukernavn);
-                    HttpContext.Session.SetString(_loggetInn, "");
+                    _log.LogInformation("Innloggingen feilet for bruker");
+                    HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);
                     return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, "LoggetInn");
+                HttpContext.Session.SetString(_loggetInn, _loggetInn);
                 return Ok(true);
             }
             _log.LogInformation("Feil i inputvalidering");
@@ -171,7 +168,25 @@ namespace diagnoseApp.Controllers
 
         public void LoggUt()
         {
-            HttpContext.Session.SetString(_loggetInn, "");
+            HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);
+        }
+
+        public async Task<ActionResult> LoggInnPerson(Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                bool returnOK = await _db.LoggInnPerson(person);
+                if (!returnOK)
+                {
+                    _log.LogInformation("Innloggingen feilet for bruker"+person.epost);
+                    HttpContext.Session.SetString(_loggetInn, "");
+                    return Ok(false);
+                }
+                HttpContext.Session.SetString(_loggetInn, "LoggetInn");
+                return Ok(true);
+            }
+            _log.LogInformation("Feil i inputvalidering");
+            return BadRequest("Feil i inputvalidering på server");
         }
 
     }

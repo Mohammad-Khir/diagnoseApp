@@ -1,23 +1,23 @@
 ﻿function loggInn() {
 
-    const brukernavnOK = validerBrukernavn($("#brukernavn").val());
+    const epostOK = validerEpost($("#epost").val());
     const passordOK = validerPassord($("#passord").val());
 
-    if (brukernavnOK && passordOK) {
-        const bruker = {
-            brukernavn: $("#brukernavn").val(),
+    if (epostOK && passordOK) {
+        const person = {
+            epost: $("#epost").val(),
             passord: $("#passord").val()
         }
-        $.post("Person/LoggInn", bruker, function (OK) {
+        $.post("Person/LoggInnPerson", person, function (OK) {
             if (OK) {
-                window.location.href = "index1.html";
+                hentPersonen();
             }
             else {
                 $("#feil").html("Feil brukernavn eller passord");
             }
         })
         .fail(function (feil) {
-            $("#feil").html("Feil på server - prøv igjen senere: " + feil.responseText + " : " + feil.status + " : " + feil.statusText);
+            $("#feil").html("Obs! Feil på server" + feil.responseText + " : " + feil.status + " : " + feil.statusText);
         });
     }
 }

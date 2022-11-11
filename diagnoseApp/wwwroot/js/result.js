@@ -90,3 +90,9 @@ function formaterTester(tester) {
     $("#tidligereTest").html(ut);
 }
 
+function loggUt() {
+    $.get("Person/LoggUt", function () {
+        window.location.href = 'home.html';
+    });
+}
+

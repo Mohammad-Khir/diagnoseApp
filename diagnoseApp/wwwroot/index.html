@@ -50,33 +50,38 @@
                                 <input type="hidden" id="id" />
                                 <div class="form-group">
                                     <label for="fornavn">Fornavn</label>
-                                    <input type="text" class="form-control" id="fornavn" onchange="validerFornavn(this.value)" placeholder="fyll inn fornavn"/><br />
+                                    <input type="text" class="form-control" id="fornavn" onchange="validerFornavn(this.value)" placeholder="fyll inn fornavn" /><br />
                                     <span id="feilFornavn" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="etternavn">Etternavn</label>
-                                    <input type="text" class="form-control" id="etternavn" onchange="validerEtternavn(this.value)" placeholder="fyll inn etternavn"/><br />
+                                    <input type="text" class="form-control" id="etternavn" onchange="validerEtternavn(this.value)" placeholder="fyll inn etternavn" /><br />
                                     <span id="feilEtternavn" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="fodselsnr">Fødselsnr</label>
-                                    <input type="text" class="form-control" id="fodselsnr" onchange="validerFodselsnr(this.value)" placeholder="fyll inn fødselsnr"/><br />
+                                    <input type="text" class="form-control" id="fodselsnr" onchange="validerFodselsnr(this.value)" placeholder="fyll inn fødselsnr" /><br />
                                     <span id="feilFodselsnr" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="adresse">Adresse</label>
-                                    <input type="text" class="form-control" id="adresse" onchange="validerAdresse(this.value)" placeholder="fyll inn adresse"/><br />
+                                    <input type="text" class="form-control" id="adresse" onchange="validerAdresse(this.value)" placeholder="fyll inn adresse" /><br />
                                     <span id="feilAdresse" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="tlf">Telefonnr</label>
-                                    <input type="text" class="form-control" id="tlf" onchange="validerTlf(this.value)" placeholder="fyll inn telefonnr"/><br />
+                                    <input type="text" class="form-control" id="tlf" onchange="validerTlf(this.value)" placeholder="fyll inn telefonnr" /><br />
                                     <span id="feilTlf" style="color: red"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="epost">Epost</label>
-                                    <input type="text" class="form-control" id="epost" onchange="validerEpost(this.value)" placeholder="fyll inn epost"/><br />
+                                    <input type="text" class="form-control" id="epost" onchange="validerEpost(this.value)" placeholder="fyll inn epost" /><br />
                                     <span id="feilEpost" style="color: red"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="epost">Passord</label>
+                                    <input type="password" class="form-control" id="passord" onchange="validerPassord(this.value)" placeholder="Minst fire tegn" /><br />
+                                    <span id="feilPassord" style="color: red"></span>
                                 </div>
                             </form>
                             <button class="btn btn-primary" onclick="validerOgRegPerson()">Registrer</button><br />
