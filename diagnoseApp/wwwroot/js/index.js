@@ -75,7 +75,7 @@ function bekreftReg() {     // lagre Person-opplysninger i DB (Bekreft knapp)
     })
     .fail(function (feil) {
         if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }
@@ -90,7 +90,7 @@ function hentPersonen() {       // Hente person-opplysninger fra DB og flytte ti
     })
     .fail(function (feil) {
         if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }

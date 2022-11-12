@@ -26,7 +26,7 @@ function hentEnTest() {
     })
     .fail(function (feil) {
         if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }
@@ -65,7 +65,7 @@ function hentAlleTester() {
     })
     .fail(function (feil) {
         if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }

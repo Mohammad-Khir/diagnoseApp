@@ -242,7 +242,7 @@ namespace diagnoseApp.DAL
             try
             {
                 Personene funnetPerson = await _db.personene.FirstOrDefaultAsync(p => p.epost == person.epost);
-                
+                //byte[] p = funnetPerson.salt;
                 byte[] hash = LagHash(person.passord, funnetPerson.salt);
                 bool ok = hash.SequenceEqual(funnetPerson.passord);
                 if (ok)

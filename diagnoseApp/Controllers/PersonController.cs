@@ -33,10 +33,10 @@ namespace diagnoseApp.Controllers
         }
         public async Task<ActionResult> Lagre(Person innPerson)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            /*if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized("Ikke logget inn");
-            }
+            }*/
             if (ModelState.IsValid)
             {
                 bool returOK = await _db.Lagre(innPerson);
@@ -84,7 +84,7 @@ namespace diagnoseApp.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
-            
+
             Person personen = await _db.HentEn(id);
             if (personen == null)
             {
@@ -130,8 +130,8 @@ namespace diagnoseApp.Controllers
             {
                 return Unauthorized("Ikke logget inn");
             }
-            Result result =  await _db.HentEnTest(test);
-            if(result == null)
+            Result result = await _db.HentEnTest(test);
+            if (result == null)
             {
                 _log.LogInformation("Resultatet ikke funnet!");
                 return NotFound("Resultatet ikke funnet!");
@@ -178,7 +178,7 @@ namespace diagnoseApp.Controllers
                 bool returnOK = await _db.LoggInnPerson(person);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innloggingen feilet for bruker"+person.epost);
+                    _log.LogInformation("Innloggingen feilet for bruker");
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
@@ -189,5 +189,7 @@ namespace diagnoseApp.Controllers
             return BadRequest("Feil i inputvalidering på server");
         }
 
+
     }
 }
+

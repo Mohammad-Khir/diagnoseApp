@@ -79,13 +79,13 @@
         window.location.href = "result.html?id=" + personid + '&testid=' + testid;
 
     })
-    .fail(function (feil) {
-        if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
-            window.location.href = 'loggInn.html';
-        } else {
-            $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
-        }
-    });
+        .fail(function (feil) {
+            if (feil.status == 401) {  // ikke logget inn, redirect til loggInn.html
+                window.location.href = 'loggInn.html';
+            } else {
+                $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
+            }
+        });
 
 }
 

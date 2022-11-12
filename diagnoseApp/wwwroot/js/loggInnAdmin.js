@@ -10,7 +10,7 @@
         }
         $.post("Person/LoggInn", bruker, function (OK) {
             if (OK) {
-                window.location.href = "index1.html";
+                window.location.href = "indexAdmin.html";
             }
             else {
                 $("#feil").html("Feil brukernavn eller passord");
@@ -21,7 +21,7 @@
         });
     }
 }
-function hentPersonen() {
+/*function hentPersonen() {
     $.get("Person/HentAlle", function (personer) {
         for (let person of personer) {
             window.location.href = "velkommen.html?id=" + person.id;
@@ -30,4 +30,4 @@ function hentPersonen() {
     .fail(function () {
         $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
     });
-}
+}*/

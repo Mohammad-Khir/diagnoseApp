@@ -13,7 +13,7 @@ function hentEnPerson() {
     })
     .fail(function (feil) {
         if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }
@@ -50,7 +50,7 @@ function slettPerson(id) {  // slette person-opplysningerfra DB ved hjelp av id 
     })
     .fail(function (feil) {
         if (feil.status == 401) {  
-            window.location.href = 'loggInn.html';
+            window.location.href = 'loggInnPerson.html';
         } else {
             $("#feil").html("Obs! det oppstod en feil på server, prøv gjerne igjen senere");
         }
@@ -61,22 +61,4 @@ function loggUt() {
         window.location.href = 'home.html';
     });
 }
-
-/*
-function hentEn() {
-    // hent personen med person-id fra url og vis denne i skjemaet (Endre knapp)
-
-    const id = window.location.search.substring(1);
-    const url = "Person/HentEn?" + id;
-    
-    $.get(url, function (person) {           
-        $("#id").val(person.id); // må ha med id inn skjemaet, hidden i html
-        $("#fornavn").val(person.fornavn);
-        $("#etternavn").val(person.etternavn);
-        $("#fodselsnr").val(person.fodselsnr);
-        $("#adresse").val(person.adresse);
-        $("#tlf").val(person.tlf);
-        $("#epost").val(person.epost);
-    });
-}*/
 
